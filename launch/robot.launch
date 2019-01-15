@@ -7,5 +7,7 @@
   </group>
   
   <include file="$(find garry-robot)/launch/cameras.launch"/>
+  
+	<include file="$(find ros_mpu6050_node)/launch/mpu6050.launch"/>
 
 </launch>
