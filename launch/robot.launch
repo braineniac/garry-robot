@@ -1,0 +1,11 @@
+<launch>
+
+  <group ns="arduino">
+    <node name="serial_python" pkg="rosserial_python" type="serial_node.py" output="screen">
+      <param name="port" value="/dev/ttyACM0" />
+    </node>
+  </group>
+  
+  <include file="$(find garry-robot)/launch/cameras.launch"/>
+
+</launch>

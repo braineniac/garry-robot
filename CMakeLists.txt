@@ -12,6 +12,9 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   joy
+  image_transport
+  cv_bridge
+  usb_cam
 )
 
 ## System dependencies are found with CMake's conventions
