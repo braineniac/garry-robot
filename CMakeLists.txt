@@ -106,8 +106,8 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES garry-robot
-#  CATKIN_DEPENDS roscpp rospy std_msgs
-#  DEPENDS system_lib
+  CATKIN_DEPENDS roscpp rospy std_msgs joy
+  #  DEPENDS system_lib
 )
 
 ###########
@@ -117,8 +117,8 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
-  ${catkin_INCLUDE_DIRS}
+	# include  
+	${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -136,7 +136,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/garry-robot_node.cpp)
 
-add_executable(garry-robot src/teleop_joy.cpp)
+add_executable(garry_teleop_node src/teleop_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -153,7 +153,7 @@ add_executable(garry-robot src/teleop_joy.cpp)
 #   ${catkin_LIBRARIES}
 # )
 
-target_link_libraries(garry-robot ${CATKIN_LIBRARIES})
+target_link_libraries(garry_teleop_node ${catkin_LIBRARIES})
 
 #############
 ## Install ##
