@@ -1,0 +1,3 @@
+<launch>
+  <node name="imu_node" pkg="garry-robot" type="imu_node" output="screen"/>
+</launch>
