@@ -12,7 +12,7 @@ class ImuNode {
     private:
         ros::NodeHandle nh;
         ros::Publisher pos_pub;
-		ros::Subscriber imu_sub;
+        ros::Subscriber imu_sub;
 
         void imu_cb(const sensor_msgs::Imu::ConstPtr& msg);
         void update_position();
@@ -38,19 +38,19 @@ ImuNode::ImuNode()
 
 void ImuNode::imu_cb(const sensor_msgs::Imu::ConstPtr& msg) {
 
-	ImuNode::imu_new.header = msg->header;
-	ImuNode::imu_new.linear_acceleration = msg->linear_acceleration;
-	ImuNode::imu_new.angular_velocity = msg->angular_velocity;
-	ImuNode::imu_cb_count++;
+    ImuNode::imu_new.header = msg->header;
+    ImuNode::imu_new.linear_acceleration = msg->linear_acceleration;
+    ImuNode::imu_new.angular_velocity = msg->angular_velocity;
+    ImuNode::imu_cb_count++;
 
     if(ImuNode::imu_cb_count == 5) {
 
         ImuNode::linear_offset[0] = msg->linear_acceleration.x;
-		ImuNode::linear_offset[1] = msg->linear_acceleration.y;
-		ImuNode::linear_offset[2] = msg->linear_acceleration.z;
-		ImuNode::angular_offset[0] = msg->angular_velocity.x;
-		ImuNode::angular_offset[1] = msg->angular_velocity.y;
-		ImuNode::angular_offset[2] = msg->angular_velocity.z;
+        ImuNode::linear_offset[1] = msg->linear_acceleration.y;
+        ImuNode::linear_offset[2] = msg->linear_acceleration.z;
+        ImuNode::angular_offset[0] = msg->angular_velocity.x;
+        ImuNode::angular_offset[1] = msg->angular_velocity.y;
+        ImuNode::angular_offset[2] = msg->angular_velocity.z;
     }
     else if(ImuNode::imu_cb_count > 6) {
         ImuNode::update_position();
@@ -65,30 +65,30 @@ void ImuNode::update_position() {
     double delta_t = new_t - old_t;
 
     std::vector<double> delta_a = std::vector<double>(3);
-	delta_a[0] = ImuNode::imu_new.linear_acceleration.x - ImuNode::imu_old.linear_acceleration.x - ImuNode::linear_offset[0];
-	delta_a[1] = ImuNode::imu_new.linear_acceleration.y - ImuNode::imu_old.linear_acceleration.x - ImuNode::linear_offset[1];
-	delta_a[2] = ImuNode::imu_new.linear_acceleration.z - ImuNode::imu_old.linear_acceleration.x - ImuNode::linear_offset[2];
+    delta_a[0] = ImuNode::imu_new.linear_acceleration.x - ImuNode::imu_old.linear_acceleration.x - ImuNode::linear_offset[0];
+    delta_a[1] = ImuNode::imu_new.linear_acceleration.y - ImuNode::imu_old.linear_acceleration.x - ImuNode::linear_offset[1];
+    delta_a[2] = ImuNode::imu_new.linear_acceleration.z - ImuNode::imu_old.linear_acceleration.x - ImuNode::linear_offset[2];
 
-	std::vector<double> linear_path = std::vector<double>(3);
+    std::vector<double> linear_path = std::vector<double>(3);
     linear_path[0] = (ImuNode::imu_old.linear_acceleration.x-ImuNode::linear_offset[0])*delta_t;
     linear_path[1] = (ImuNode::imu_old.linear_acceleration.y-ImuNode::linear_offset[1])*delta_t;
     linear_path[2] = (ImuNode::imu_old.linear_acceleration.z-ImuNode::linear_offset[2])*delta_t;
 
-	ImuNode::linear_position[0] =  0.5*delta_a[0]*delta_t*delta_t + linear_path[0];
-	ImuNode::linear_position[1] =  0.5*delta_a[1]*delta_t*delta_t + linear_path[1];
-	ImuNode::linear_position[2] =  0.5*delta_a[2]*delta_t*delta_t + linear_path[2];
+    ImuNode::linear_position[0] =  0.5*delta_a[0]*delta_t*delta_t + linear_path[0];
+    ImuNode::linear_position[1] =  0.5*delta_a[1]*delta_t*delta_t + linear_path[1];
+    ImuNode::linear_position[2] =  0.5*delta_a[2]*delta_t*delta_t + linear_path[2];
 
-	ImuNode::angular_velocity[0] = (ImuNode::imu_old.angular_velocity.x - ImuNode::angular_offset[0]) * delta_t;
-	ImuNode::angular_velocity[1] = (ImuNode::imu_old.angular_velocity.y - ImuNode::angular_offset[1]) * delta_t;
-	ImuNode::angular_velocity[2] = (ImuNode::imu_old.angular_velocity.z - ImuNode::angular_offset[2]) * delta_t;
+    ImuNode::angular_velocity[0] = (ImuNode::imu_old.angular_velocity.x - ImuNode::angular_offset[0]) * delta_t;
+    ImuNode::angular_velocity[1] = (ImuNode::imu_old.angular_velocity.y - ImuNode::angular_offset[1]) * delta_t;
+    ImuNode::angular_velocity[2] = (ImuNode::imu_old.angular_velocity.z - ImuNode::angular_offset[2]) * delta_t;
 
-	ImuNode::publish_position();
+    ImuNode::publish_position();
 }
 
 void ImuNode::publish_position() {
 
     // sanity check
-	if (ImuNode::linear_position[0] > 0.03 || ImuNode::linear_position[1] > 0.03)
+    if (ImuNode::linear_position[0] > 0.03 || ImuNode::linear_position[1] > 0.03)
         if (ImuNode::linear_position[0] < 0.5 || ImuNode::linear_position[2] < 0.5) {
 
             geometry_msgs::TwistStamped twist_stamped;
@@ -109,8 +109,8 @@ void ImuNode::publish_position() {
 
 int main(int argc, char **argv) {
 
-	ros::init(argc, argv, "imu_node");
-	ImuNode imu_node;
+    ros::init(argc, argv, "imu_node");
+    ImuNode imu_node;
 
     ros::spin();
 
