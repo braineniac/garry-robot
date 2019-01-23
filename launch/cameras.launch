@@ -1,8 +1,0 @@
-<launch>
-  
-  <include file="$(find garry-robot)/launch/camerav2_1280x960.launch"/>
-
-  <node name="webcam_cv" pkg="cv_camera" type="cv_camera_node" output="screen">
-    <param name="device_id" value="0"/>
-  </node>
-</launch>

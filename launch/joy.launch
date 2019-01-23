@@ -12,6 +12,5 @@
         <param name="scale_angular" value="0.5" type="double"/>
     </node>
 
-    <include file="$(find garry-description)/launch/state.launch"/>
-
+    
 </launch>
