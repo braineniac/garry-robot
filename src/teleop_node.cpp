@@ -5,7 +5,7 @@
 class TeleopGarry {
 	public:
 		TeleopGarry();
-	
+
 	private:
 		void joy_cb(const sensor_msgs::Joy::ConstPtr& joy);
 
@@ -27,7 +27,7 @@ TeleopGarry::TeleopGarry():
 	nh_.param("scale_angular", a_scale_, a_scale_);
 	nh_.param("scale_linear", l_scale_, l_scale_);
 
-	vel_pub_ = nh_.advertise<geometry_msgs::Twist>("garry/cmd_vel", 1);
+	vel_pub_ = nh_.advertise<geometry_msgs::Twist>("/arduino/motor_both", 1);
 
 	joy_sub_ = nh_.subscribe<sensor_msgs::Joy>("joy", 10, &TeleopGarry::joy_cb, this);
 

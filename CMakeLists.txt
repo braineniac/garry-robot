@@ -139,7 +139,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/garry-robot_node.cpp)
 
-add_executable(garry_teleop_node src/teleop_node.cpp)
+add_executable(teleop_node src/teleop_node.cpp)
 add_executable(imu_node src/imu_node.cpp)
 
 ## Rename C++ executable without prefix
@@ -157,7 +157,7 @@ add_executable(imu_node src/imu_node.cpp)
 #   ${catkin_LIBRARIES}
 # )
 
-target_link_libraries(garry_teleop_node ${catkin_LIBRARIES})
+target_link_libraries(teleop_node ${catkin_LIBRARIES})
 target_link_libraries(imu_node ${catkin_LIBRARIES})
 
 #############
