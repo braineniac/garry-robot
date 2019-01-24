@@ -1,13 +1,11 @@
 <launch>
 
-    <node name="garry_joy" pkg="joy" type="joy_node" respawn="true">
+    <node name="joy_node" pkg="joy" type="joy_node" respawn="true">
         <param name="dev" type="string" value="/dev/input/js0" />
         <param name="deadzone" value="0.12" />
     </node>
 
-    <node name="garry_teleop_node" pkg="garry-robot" type="teleop_node" >
-        <param name="axis_linear" value="1" type="int"/>
-        <param name="axis_angular" value="1" type="int"/>
+    <node name="teleop_node" pkg="garry-robot" type="teleop_node" output="screen">
         <param name="scale_linear" value="0.5" type="double"/>
         <param name="scale_angular" value="0.5" type="double"/>
     </node>
