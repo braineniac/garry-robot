@@ -12,6 +12,8 @@
 
     <include file="$(find garry-description)/launch/state.launch"/>
 
-    <include file="$(find garry-robot)/launch/cameras.launch"/>
+    <include file="$(find garry-robot)/launch/camera.launch"/>
 
+    <node name="eyes_node" pkg="garry-robot" type="eyes_node" output="screen"/>
+    
 </launch>

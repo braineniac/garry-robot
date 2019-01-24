@@ -7,10 +7,10 @@
 
     <node name="garry_teleop_node" pkg="garry-robot" type="teleop_node" >
         <param name="axis_linear" value="1" type="int"/>
-        <param name="axis_angular" value="0" type="int"/>
+        <param name="axis_angular" value="1" type="int"/>
         <param name="scale_linear" value="0.5" type="double"/>
         <param name="scale_angular" value="0.5" type="double"/>
     </node>
 
-    
+
 </launch>

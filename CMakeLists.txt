@@ -141,6 +141,7 @@ include_directories(
 
 add_executable(teleop_node src/teleop_node.cpp)
 add_executable(imu_node src/imu_node.cpp)
+add_executable(eyes_node src/eyes_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -159,6 +160,7 @@ add_executable(imu_node src/imu_node.cpp)
 
 target_link_libraries(teleop_node ${catkin_LIBRARIES})
 target_link_libraries(imu_node ${catkin_LIBRARIES})
+target_link_libraries(eyes_node ${catkin_LIBRARIES})
 
 #############
 ## Install ##

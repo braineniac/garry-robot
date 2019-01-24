@@ -27,17 +27,20 @@ TeleopGarry::TeleopGarry():
 	nh_.param("scale_angular", a_scale_, a_scale_);
 	nh_.param("scale_linear", l_scale_, l_scale_);
 
-	vel_pub_ = nh_.advertise<geometry_msgs::Twist>("/arduino/motor_both", 1);
+	vel_pub_ = nh_.advertise<geometry_msgs::Twist>("/arduino/cmd_vel",1);
 
 	joy_sub_ = nh_.subscribe<sensor_msgs::Joy>("joy", 10, &TeleopGarry::joy_cb, this);
 
 }
 
 void TeleopGarry::joy_cb(const sensor_msgs::Joy::ConstPtr& joy) {
-	geometry_msgs::Twist twist;
-	twist.angular.z = a_scale_ * joy->axes[angular_];
-	twist.linear.x = l_scale_ * joy->axes[linear_];
-	vel_pub_.publish(twist);
+	geometry_msgs::Twist msg;
+
+	msg.angular.z =joy->axes[angular_];
+	msg.linear.x = joy->axes[linear_];
+
+    vel_pub_.publish(msg);
+    usleep(1000);
 }
 
 int main (int argc, char * argv[]) {
