@@ -8,6 +8,7 @@
     <node name="teleop_node" pkg="garry-robot" type="teleop_node" output="screen">
         <param name="scale_linear" value="0.5" type="double"/>
         <param name="scale_angular" value="0.5" type="double"/>
+        <param name="timeout" value="100000" type="int"/>
     </node>
 
 
