@@ -70,9 +70,9 @@ void ImuNode::update_position() {
     delta_a[2] = ImuNode::imu_new.linear_acceleration.z - ImuNode::imu_old.linear_acceleration.x - ImuNode::linear_offset[2];
 
     std::vector<double> linear_path = std::vector<double>(3);
-    linear_path[0] = (ImuNode::imu_old.linear_acceleration.x-ImuNode::linear_offset[0])*delta_t;
-    linear_path[1] = (ImuNode::imu_old.linear_acceleration.y-ImuNode::linear_offset[1])*delta_t;
-    linear_path[2] = (ImuNode::imu_old.linear_acceleration.z-ImuNode::linear_offset[2])*delta_t;
+    linear_path[0] = (ImuNode::imu_old.linear_acceleration.x-ImuNode::linear_offset[0])*delta_t*delta_t;
+    linear_path[1] = (ImuNode::imu_old.linear_acceleration.y-ImuNode::linear_offset[1])*delta_t*delta_t;
+    linear_path[2] = (ImuNode::imu_old.linear_acceleration.z-ImuNode::linear_offset[2])*delta_t*delta_t;
 
     ImuNode::linear_position[0] =  0.5*delta_a[0]*delta_t*delta_t + linear_path[0];
     ImuNode::linear_position[1] =  0.5*delta_a[1]*delta_t*delta_t + linear_path[1];
