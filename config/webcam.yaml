@@ -1,0 +1,20 @@
+image_width: 640
+image_height: 480
+camera_name: Logitech, Inc. Portable Webcam C905
+camera_matrix:
+  rows: 3
+  cols: 3
+  data: [503.638465, 0.000000, 314.826926, 0.000000, 502.244200, 238.339788, 0.000000, 0.000000, 1.000000]
+distortion_model: plumb_bob
+distortion_coefficients:
+  rows: 1
+  cols: 5
+  data: [0.019785, -0.104871, -0.001940, -0.002097, 0.000000]
+rectification_matrix:
+  rows: 3
+  cols: 3
+  data: [1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 1.000000]
+projection_matrix:
+  rows: 3
+  cols: 4
+  data: [498.653320, 0.000000, 313.142466, 0.000000, 0.000000, 501.733948, 237.626805, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000]

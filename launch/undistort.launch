@@ -1,0 +1,6 @@
+<launch>
+  <node name="undistort_node" pkg="image_undistort" type="stereo_undistort_node">
+    <param name="first_camera_namespace" value="/raspicam"/>
+    <param name="second_camera_namespace" value="/webcam"/>
+  </node>
+</launch>

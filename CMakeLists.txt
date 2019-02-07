@@ -15,11 +15,13 @@ find_package(catkin REQUIRED COMPONENTS
   image_transport
   cv_bridge
   usb_cam
+  tf
+  nav_msgs
 )
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
-
+add_compile_options(-std=c++11)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -120,7 +122,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-	# include  
+	# include
 	${catkin_INCLUDE_DIRS}
 )
 
@@ -140,7 +142,7 @@ include_directories(
 # add_executable(${PROJECT_NAME}_node src/garry-robot_node.cpp)
 
 add_executable(teleop_node src/teleop_node.cpp)
-add_executable(imu_node src/imu_node.cpp)
+add_executable(odom_node src/odom_node.cpp)
 add_executable(eyes_node src/eyes_node.cpp)
 
 ## Rename C++ executable without prefix
@@ -159,7 +161,7 @@ add_executable(eyes_node src/eyes_node.cpp)
 # )
 
 target_link_libraries(teleop_node ${catkin_LIBRARIES})
-target_link_libraries(imu_node ${catkin_LIBRARIES})
+target_link_libraries(odom_node ${catkin_LIBRARIES})
 target_link_libraries(eyes_node ${catkin_LIBRARIES})
 
 #############
