@@ -14,6 +14,8 @@
 
     <include file="$(find garry-robot)/launch/camera.launch"/>
 
+    <include file="$(find garry-robot)/launch/localization.launch"/>
+
     <!--node name="odom_node" pkg="garry-robot" type="odom_node" output="screen"/-->
 
 </launch>
