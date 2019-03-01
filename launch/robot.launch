@@ -1,10 +1,12 @@
 <launch>
 
-    <include file="$(find garry-description)/launch/arduino.launch"/>
+    <include file="$(find garry-robot)/launch/arduino.launch"/>
 
     <include file="$(find garry-description)/launch/state.launch"/>
 
     <include file="$(find garry-robot)/launch/camera.launch"/>
+
+    <include file="$(find garry-robot)/launch/joy.launch"/>
 
     <include file="$(find garry-robot)/launch/localization.launch"/>
 

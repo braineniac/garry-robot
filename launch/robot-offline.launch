@@ -1,5 +1,4 @@
 <launch>
   <include file="$(find garry-robot)/launch/localization.launch"/>
   <include file="$(find garry-description)/launch/state.launch"/>
-  <include file="$(find garry-robot)/launch/imu-filter.launch"/>
 </launch>
