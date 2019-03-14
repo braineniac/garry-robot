@@ -1,6 +1,6 @@
 <launch>
     <node name="fake_wheel_node" pkg="garry-robot" type="fake_wheel_node"/>
-    <node name="motor_timeout_node" pkg="garry-robot" type="motor_timeout_node">
+    <!--node name="motor_timeout_node" pkg="garry-robot" type="motor_timeout_node">
         <param name="timeout" value="0.2"/>
-    </node>
+    </node-->
 </launch>

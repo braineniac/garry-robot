@@ -8,6 +8,7 @@
 class TeleopNode {
     public:
         TeleopNode();
+				void publish_joy();
     private:
         ros::NodeHandle nh;
 
@@ -18,6 +19,8 @@ class TeleopNode {
 
         int linear, angular;
         double l_scale, a_scale;
+
+				geometry_msgs::Twist current_twist;
 };
 
 TeleopNode::TeleopNode() {
@@ -39,14 +42,22 @@ void TeleopNode::joy_cb(const sensor_msgs::Joy::ConstPtr& joy) {
     msg.angular.z = a_scale * joy->axes[angular];
     msg.linear.x = l_scale * joy->axes[linear];
 
-    vel_pub.publish(msg);
+    current_twist = msg;
 
+}
+
+void TeleopNode::publish_joy() {
+		vel_pub.publish(current_twist);
 }
 
 int main (int argc, char * argv[]) {
 
     ros::init(argc,argv, "teleop_node");
     TeleopNode teleop_node;
-
-    ros::spin();
+		ros::Rate r(10);
+		while(ros::ok()){
+						teleop_node.publish_joy();
+						ros::spinOnce();
+						r.sleep();
+		}
 }

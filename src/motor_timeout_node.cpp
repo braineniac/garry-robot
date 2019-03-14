@@ -2,7 +2,7 @@
 #include <csignal>
 
 #include <ros/ros.h>
-#include <geometry_msgs/Twist.h>
+#include <geometry_msgs/TwistWithCovarianceStamped.h>
 #include <sensor_msgs/Joy.h>
 
 class MotorTimeoutNode {
@@ -18,21 +18,19 @@ class MotorTimeoutNode {
     void joy_cb(const sensor_msgs::Joy::ConstPtr& joy);
 
     int timeout;    // in milisec
-    bool timeout_set{false};
 
     ros::Time last_time;
 };
 
 MotorTimeoutNode::MotorTimeoutNode() {
     nh.getParam("/motor_timeout_node/timeout", timeout);
-    vel_pub = nh.advertise<geometry_msgs::Twist>("/arduino/cmd_vel",1);
+    vel_pub = nh.advertise<geometry_msgs::TwistWithCovarianceStamped>("/fake_wheel/twist",1);
     joy_sub = nh.subscribe<sensor_msgs::Joy>("joy", 1, &MotorTimeoutNode::joy_cb, this);
 }
 
 void MotorTimeoutNode::joy_cb(const sensor_msgs::Joy::ConstPtr& joy) {
 
     last_time = ros::Time::now();
-    timeout_set = false;
 }
 
 void MotorTimeoutNode::watch_motor_timeout(){
@@ -40,12 +38,17 @@ void MotorTimeoutNode::watch_motor_timeout(){
     ros::Duration motor_timeout(timeout);
     ros::Time now = ros::Time::now();
 
-    if(last_time + motor_timeout < now && !timeout_set) {
-        geometry_msgs::Twist msg;
-        msg.angular.z = 0.0;
-        msg.linear.x = 0.0;
-        vel_pub.publish(msg);
-        timeout_set = true;
+    if(last_time + motor_timeout < now) {
+
+        geometry_msgs::TwistWithCovarianceStamped twist;
+
+        twist.header.stamp = now;
+        twist.header.frame_id = "base_link";
+
+        twist.twist.twist.angular.z = 0.0;
+        twist.twist.twist.linear.x = 0.0;
+        twist.twist.covariance[0] = 0.0;
+        vel_pub.publish(twist);
     }
 }
 
