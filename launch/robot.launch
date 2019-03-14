@@ -8,7 +8,7 @@
 
     <include file="$(find garry-robot)/launch/joy.launch"/>
 
-    <include file="$(find garry-robot)/launch/relay.launch"/>
+    <include file="$(find garry-robot)/launch/fake_wheel.launch"/>
 
     <include file="$(find garry-robot)/launch/localization.launch"/>
 

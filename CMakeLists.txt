@@ -21,7 +21,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
-add_compile_options(-std=c++11)
+add_compile_options(-std=c++17)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -142,6 +142,8 @@ include_directories(
 # add_executable(${PROJECT_NAME}_node src/garry-robot_node.cpp)
 
 add_executable(teleop_node src/teleop_node.cpp)
+add_executable(fake_wheel_node src/fake_wheel_node.cpp)
+add_executable(motor_timeout_node src/motor_timeout_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -159,6 +161,8 @@ add_executable(teleop_node src/teleop_node.cpp)
 # )
 
 target_link_libraries(teleop_node ${catkin_LIBRARIES})
+target_link_libraries(fake_wheel_node ${catkin_LIBRARIES})
+target_link_libraries(motor_timeout_node ${catkin_LIBRARIES})
 
 #############
 ## Install ##

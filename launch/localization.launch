@@ -16,31 +16,26 @@
                                      0.0, 0.0, 0.0,
                                      0.0, 0.0, 0.0]</rosparam>
 
-    <!-- control settings -->
-    <param name="use_control" value="true"/>
-    <!--param name="control_timeout" value="5"/-->
-    <rosparam param="control_config">[true, true, false,
-                                      false, false, false]</rosparam>
-    <rosparam param="acceleration_limits">[0.01, 0.01, 0.01,
-                                           0.0, 0.0, 0.0]</rosparam>
-    <rosparam param="deceleration_limits">[0.01,0.01,0.01,
-                                           0.0,0.0,0.0]</rosparam>
-    <rosparam param="acceleration_gains">[0.01, 0.01, 0.01,
-                                          0.0, 0.0, 0.0]</rosparam>
-
     <!-- imu0 configuration -->
-    <param name="imu0" value="/imu/data_raw"/>
-    <rosparam param="imu0_config">[false, false, false,
+    <!--param name="imu0" value="/imu/data_raw"/-->
+    <!--rosparam param="imu0_config">[false, false, false,
                                    false, false, false,
                                    false, false, false,
                                    false, false, true,
-                                   false, false, false]</rosparam>
+                                   false, false, false]</rosparam-->
     <!--param name="imu0_differential" value="true"/-->
     <!--param name="imu0_nodelay" value="true"/-->
     <!--param name="imu0_relative" value="true"/-->
     <!--param name="imu0_remove_gravitational_acceleration" value="false"/-->
     <!--param name="imu0_angular_velocity_rejection_threshold" value="0.1"/-->
     <!--param name="imu0_linear_acceleration_rejection_threshold" value="1.0"/-->
+
+    <param name="twist0" value="/fake_wheel/twist"/>
+    <rosparam param="twist0_config">[true, true, false,
+                                    false, false, true,
+                                    false, false, false,
+                                    false, false, false,
+                                    false, false, false]</rosparam>
 
   </node>
 </launch>
