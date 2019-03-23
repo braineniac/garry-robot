@@ -45,11 +45,11 @@ int main(int argc, char* argv[]) {
     ros::init(argc, argv, "fake_wheel_odom_node");
 
     FakeWheelNode fake_wheel_odom_node;
-		ros::Rate r(10);
+    ros::Rate r(10);
 
-    while(ros::ok()) { 
-				fake_wheel_odom_node.fake_wheel_pub();
-				ros::spinOnce();
-			  r.sleep();	
-		}
+    while(ros::ok()) {
+        fake_wheel_odom_node.fake_wheel_pub();
+        ros::spinOnce();
+        r.sleep();
+    }
 }
