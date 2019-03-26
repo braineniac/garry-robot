@@ -28,7 +28,7 @@ void FakeWheelNode::cmd_vel_cb(const geometry_msgs::Twist::ConstPtr& twist_msg) 
     fake_wheel_twist.header.stamp    = ros::Time::now();
     fake_wheel_twist.header.frame_id = "base_link";
 
-    fake_wheel_twist.twist.twist.linear.x  = twist_msg->linear.x * 0.352941176;    // in m/s
+    fake_wheel_twist.twist.twist.linear.x  = twist_msg->linear.x * 0.282087447;    // in m/s
     fake_wheel_twist.twist.twist.angular.z = twist_msg->angular.z * 5.150152;    // in rad/s
 
     fake_wheel_twist.twist.covariance[0] = 0.0;
