@@ -1,4 +1,5 @@
 <launch>
   <include file="$(find garry-robot)/launch/localization.launch"/>
+  <include file="$(find garry-robot)/launch/relay.launch"/>
   <include file="$(find garry-description)/launch/state.launch"/>
 </launch>
