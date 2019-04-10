@@ -23,13 +23,13 @@ class SaveNPNode:
 
     def imu_cb(self, imu_msg):
         self.u_k[self.i][1] = imu_msg.linear_acceleration.x
-        self.t_k[self.i][1] = rospy.get_rostime()
+        self.t_k[self.i][1] = rospy.get_rostime().to_sec()
         self.save_np()
         self.i = self.i + 1
 
     def fake_enc_cb(self, twist_msg):
         self.u_k[self.i][0] = twist_msg.twist.twist.linear.x
-        self.t_k[self.i][0] = rospy.get_rostime()
+        self.t_k[self.i][0] = rospy.get_rostime().to_sec()
         self.save_np()
         self.i = self.i + 1
 
