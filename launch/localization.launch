@@ -22,7 +22,7 @@
                                    false, false, false,
                                    false, false, false,
                                    false, false, true,
-                                   false, false, false]</rosparam>
+                                   true, true, false]</rosparam>
     <!--param name="imu0_differential" value="true"/-->
     <param name="imu0_nodelay" value="true"/>
     <param name="imu0_queue_size" value="200"/>

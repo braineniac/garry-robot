@@ -1,0 +1,3 @@
+<launch>
+  <node name="np_save_node" pkg="garry-robot" type="save_np_node.py" output="screen"/>
+</launch>
