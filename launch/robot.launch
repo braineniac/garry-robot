@@ -10,6 +10,8 @@
 
     <include file="$(find garry-robot)/launch/fake_wheel.launch"/>
 
+		<include file="$(find rpi_mpu6050)/launch/mpu6050_py.launch"/>
+
     <!--include file="$(find garry-robot)/launch/imu-filter.launch"/-->
 
     <!--include file="$(find garry-robot)/launch/localization.launch"/-->
