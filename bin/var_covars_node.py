@@ -10,7 +10,7 @@ class VarCovarsNode:
         self.fake_wheel_pub = rospy.Publisher("/fake_wheel/twist_var", TwistWithCovarianceStamped, queue_size=1)
 
         self.covariance_euler = np.zeros(36)
-        self.covariance_euler[0] = 100.0
+        self.covariance_euler[0] = ((400/1000000) * 9.80655)**2 / 100000.0
 
     def fake_wheel_cb(self, msg):
         new_msg = TwistWithCovarianceStamped()
