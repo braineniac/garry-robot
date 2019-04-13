@@ -1,48 +1,39 @@
 #!/usr/bin/env python
 
-import rospy
 import numpy as np
-from geometry_msgs.msg import TwistWithCovarianceStamped
-from sensor_msgs.msg import Imu
+import rosbag
 
-class SaveNPNode:
-    def __init__(self):
-        self.datapoints=5000
-        self.u_k = np.zeros((self.datapoints,2))
-        self.t_k = np.zeros((self.datapoints,2))
-        self.i = 0
+class Bag2NP:
+    def __init__(self, bag_path, out_path):
+        self.bag_path = bag_path
+        self.out_path = out_path
+        self.u_k = [[],[]]
+        self.t_k = [[],[]]
+        self.read_bag()
 
-        self.imu_sub = rospy.Subscriber("/imu/data_raw", Imu, self.imu_cb)
-        self.fake_enc_sub = rospy.Subscriber("/fake_wheel/twist", TwistWithCovarianceStamped, self.fake_enc_cb)
-
+    def read_bag(self):
+        bag = rosbag.Bag(self.bag_path)
+        imu_msgs = bag.read_messages(topics=['/imu/data_raw'])
+        for imu_msg in imu_msgs:
+            self.imu2np(imu_msg.message)
+        twist_msgs = bag.read_messages(topics=['/fake_wheel/twist'])
+        for twist_msg in twist_msgs:
+            self.twist2np(twist_msg.message)
+        print(self.u_k)
+        self.save_np()
 
     def save_np(self):
-        np.save("/home/dan/straight_dmp.npy",[self.u_k, self.t_k])
-        rospy.signal_shutdown('Quit')
+        np.save(self.out_path,[self.u_k, self.t_k])
+        print("Data saved")
 
-    def check_full(self):
-        rospy.loginfo("Datapoint {} of 300 saved".format(self.i + 1))
-        if self.i == self.datapoints-1:
-            rospy.loginfo("Array full")
-            self.save_np()
+    def imu2np(self, imu_msg):
+        self.u_k = np.append(self.u_k,[[0],[imu_msg.linear_acceleration.x]],axis=1)
+        self.t_k =np.append(self.t_k,[[0],[imu_msg.header.stamp.to_sec()]],axis=1)
 
-    def imu_cb(self, imu_msg):
-        self.u_k[self.i][1] = imu_msg.linear_acceleration.x
-        self.t_k[self.i][1] = rospy.get_rostime().to_sec()
-        self.save_np()
-        self.i = self.i + 1
-
-    def fake_enc_cb(self, twist_msg):
-        self.u_k[self.i][0] = twist_msg.twist.twist.linear.x
-        self.t_k[self.i][0] = rospy.get_rostime().to_sec()
-        self.save_np()
-        self.i = self.i + 1
+    def twist2np(self, twist_msg):
+        self.u_k = np.append(self.u_k,[[twist_msg.twist.twist.linear.x],[0]],axis=1)
+        self.t_k = np.append(self.t_k,[[twist_msg.header.stamp.to_sec()],[0]],axis=1)
 
 if __name__ == '__main__':
-    rospy.loginfo("Initialising save_np_node")
-    rospy.loginfo("Saving up to 300 datapoints")
-    rospy.init_node("save_np_node")
-    save_np_node = SaveNPNode()
-    rate = rospy.Rate(10)
-    while not rospy.is_shutdown():
-        rate.sleep()
+    bag2np = Bag2NP(bag_path="/home/dan/straight_dmp_40hz_46cm.bag", \
+                out_path="/home/dan/ros/src/simple_kalman/numpy/straight_dmp.npy")
