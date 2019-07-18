@@ -200,9 +200,9 @@ target_link_libraries(motor_timeout_node ${catkin_LIBRARIES})
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
 
-catkin_install_python(PROGRAMS bin/var_covars_node.py
-                      DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
+#catkin_install_python(PROGRAMS bin/var_covars_node.py
+#                      DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+#)
 
 #############
 ## Testing ##
