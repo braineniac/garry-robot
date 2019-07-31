@@ -22,12 +22,12 @@
                                    false, false, false,
                                    false, false, false,
                                    false, false, true,
-                                   true, false, false]</rosparam>
+                                   false, false, false]</rosparam>
     <!--param name="imu0_differential" value="true"/-->
     <param name="imu0_nodelay" value="true"/>
     <!--param name="imu0_queue_size" value="200"/>
     <param name="imu0_relative" value="true"/-->
-    <param name="imu0_remove_gravitational_acceleration" value="true"/>
+    <param name="imu0_remove_gravitational_acceleration" value="true"/>!
     <!--param name="imu0_angular_velocity_rejection_threshold" value="0.1"/-->
     <!--param name="imu0_linear_acceleration_rejection_threshold" value="1.0"/-->
 
@@ -38,7 +38,7 @@
                                     false, false, false,
                                     false, false, false]</rosparam>
 
-    <param name="twist0_queue_size" value="20"/>
+    <!--param name="twist0_queue_size" value="20"/-->
     <!--param name="twist0_relative" value="true"/-->
     <!--param name="twist0_nodelay" value="true"/-->
   </node>
