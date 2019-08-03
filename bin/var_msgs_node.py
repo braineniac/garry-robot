@@ -9,8 +9,7 @@ class VarMsgsNode:
     def __init__(self, imu_in="/imu",
                        imu_out="/imu/var",
                        twist_in="/fake_wheel/twist",
-                       twist_out="/fake_wheel/twist_var",
-                       ratio=1/3.
+                       twist_out="/fake_wheel/twist_var"
                        ):
         self.twist_sub = rospy.Subscriber(twist_in, TwistWithCovarianceStamped, self.twist_cb)
         self.twist_pub = rospy.Publisher(twist_out, TwistWithCovarianceStamped, queue_size=1)

@@ -143,7 +143,7 @@ include_directories(
 # add_executable(${PROJECT_NAME}_node src/garry-robot_node.cpp)
 
 add_executable(teleop_node src/teleop_node.cpp)
-add_executable(fake_wheel_node src/fake_wheel_node.cpp)
+add_executable(fake_encoder_node src/fake_encoder_node.cpp)
 add_executable(motor_timeout_node src/motor_timeout_node.cpp)
 
 ## Rename C++ executable without prefix
@@ -162,7 +162,7 @@ add_executable(motor_timeout_node src/motor_timeout_node.cpp)
 # )
 
 target_link_libraries(teleop_node ${catkin_LIBRARIES})
-target_link_libraries(fake_wheel_node ${catkin_LIBRARIES})
+target_link_libraries(fake_encoder_node ${catkin_LIBRARIES})
 target_link_libraries(motor_timeout_node ${catkin_LIBRARIES})
 
 #############
