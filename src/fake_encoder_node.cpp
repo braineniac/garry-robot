@@ -25,16 +25,16 @@ void FakeEncoderNode::cmd_vel_cb(const geometry_msgs::Twist::ConstPtr& twist_msg
 
     geometry_msgs::TwistWithCovarianceStamped fake_encoder_twist;
 
-    fake_wheel_twist.header.stamp    = ros::Time::now();
-    fake_wheel_twist.header.frame_id = "base_link";
+    fake_encoder_twist.header.stamp    = ros::Time::now();
+    fake_encoder_twist.header.frame_id = "base_link";
 
-    fake_wheel_twist.twist.twist.linear.x  = twist_msg->linear.x;
-    fake_wheel_twist.twist.twist.angular.z = twist_msg->angular.z;
+    fake_encoder_twist.twist.twist.linear.x  = twist_msg->linear.x;
+    fake_encoder_twist.twist.twist.angular.z = twist_msg->angular.z;
 
-    current_msg = fake_wheel_twist;
+    current_msg = fake_encoder_twist;
 }
 
-void FakeWheelNode::fake_wheel_pub() {
+void FakeEncoderNode::fake_encoder_pub() {
     fake_encoder_twist_pub.publish(current_msg);
 }
 
