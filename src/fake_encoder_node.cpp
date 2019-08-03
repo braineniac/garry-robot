@@ -10,14 +10,14 @@ class FakeEncoderNode {
     ros::NodeHandle nh;
 
     ros::Subscriber cmd_vel_sub;
-    ros::Publisher  fake_encoder_pub;
+    ros::Publisher  fake_encoder_twist_pub;
 
     void cmd_vel_cb(const geometry_msgs::Twist::ConstPtr& twist_msg);
 		geometry_msgs::TwistWithCovarianceStamped current_msg;
 };
 
-FakeWheelNode::FakeWheelNode() {
-    cmd_vel_sub = nh.subscribe<geometry_msgs::Twist>("/arduino/cmd_vel", 1, &FakeWheelNode::cmd_vel_cb, this);
+FakeEncoderNode::FakeEncoderNode() {
+    cmd_vel_sub = nh.subscribe<geometry_msgs::Twist>("/arduino/cmd_vel", 1, &FakeEncoderNode::cmd_vel_cb, this);
     fake_encoder_twist_pub = nh.advertise<geometry_msgs::TwistWithCovarianceStamped>("/fake_encoder/twist", 1);
 }
 
