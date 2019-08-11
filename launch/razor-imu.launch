@@ -1,0 +1,7 @@
+<launch>
+  <arg name="razor_config_file" value="$(find garry-robot)/config/my_razor.yaml"/>
+  <node name="razor_imu_node" pkg="razor_imu_9dof" type="imu_node.py" output="screen">
+    <rosparam file="$(arg razor_config_file)" command="load"/>
+    <!--remap from="/imu" to="/imu/data_raw"/-->
+  </node>
+</launch>

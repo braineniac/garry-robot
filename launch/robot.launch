@@ -4,11 +4,13 @@
 
     <include file="$(find garry-description)/launch/state.launch"/>
 
+		<include file="$(find garry-robot)/launch/razor-imu.launch"/>
+
     <!--include file="$(find garry-robot)/launch/camera.launch"/-->
 
     <include file="$(find garry-robot)/launch/joy.launch"/>
 
-    <include file="$(find garry-robot)/launch/fake_wheel.launch"/>
+    <include file="$(find garry-robot)/launch/fake_encoder.launch"/>
 
     <!--include file="$(find garry-robot)/launch/imu-filter.launch"/-->
 
