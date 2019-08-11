@@ -8,8 +8,8 @@ import numpy as np
 class VarMsgsNode:
     def __init__(self, imu_in="/imu",
                        imu_out="/imu/var",
-                       twist_in="/fake_wheel/twist",
-                       twist_out="/fake_wheel/twist_var"
+                       twist_in="/fake_encoder/twist",
+                       twist_out="/fake_encoder/twist_var"
                        ):
         self.twist_sub = rospy.Subscriber(twist_in, TwistWithCovarianceStamped, self.twist_cb)
         self.twist_pub = rospy.Publisher(twist_out, TwistWithCovarianceStamped, queue_size=1)
@@ -17,10 +17,15 @@ class VarMsgsNode:
         self.imu_sub = rospy.Subscriber(imu_in, Imu, self.imu_cb)
         self.imu_pub = rospy.Publisher(imu_out, Imu, queue_size=1)
 
-        self.twist_peak_vel = 0.282087447/2.0
+        self.twist_lin_x_peak = 0.28
+        self.twist_ang_z_peak = -2.78
+        self.r1 = 0.00001
+        self.r2 = 1
 
         self.covariance_euler = np.zeros(36)
-        self.covariance_euler[0] = 0.04 * ratio*ratio
+        self.covariance_euler[0] = (0.04*self.r1)**2
+        self.covariance_euler[35] = (0.02*self.r2)**2
+
 
     def twist_cb(self, twist_msg):
         new_twist_msg = TwistWithCovarianceStamped()
@@ -28,7 +33,8 @@ class VarMsgsNode:
         new_twist_msg.header = twist_msg.header
         new_twist_msg.header.frame_id = "base_link"
 
-        new_twist_msg.twist = twist_msg.twist
+        new_twist_msg.twist.twist.linear.x = twist_msg.twist.twist.linear.x * self.twist_lin_x_peak
+        new_twist_msg.twist.twist.angular.z =twist_msg.twist.twist.angular.z * self.twist_ang_z_peak
 
         new_twist_msg.twist.covariance = self.covariance_euler
 
@@ -38,7 +44,7 @@ class VarMsgsNode:
         new_imu_msg = Imu()
 
         new_imu_msg.header = imu_msg.header
-        new_imu_msg.header.frame_id = "imu_link"
+        new_imu_msg.header.frame_id = "base_imu_link"
 
         new_imu_msg.orientation = imu_msg.orientation
         new_imu_msg.orientation_covariance = imu_msg.orientation_covariance
@@ -54,10 +60,8 @@ class VarMsgsNode:
 if __name__ == '__main__':
     rospy.loginfo("Initialising var_msgs_node")
     rospy.init_node("var_msgs_node")
-    ratio = rospy.get_param("~ratio", 1/3.)
-    rospy.loginfo("The ratio is: {}".format(ratio))
 
-    var_covar_node = VarMsgsNode(ratio=ratio)
+    var_covar_node = VarMsgsNode()
     rate = rospy.Rate(10)
 
     while not rospy.is_shutdown():

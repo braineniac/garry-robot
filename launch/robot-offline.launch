@@ -1,19 +1,17 @@
 <launch>
   <arg name="folder" default="/home/dan/ws/rosbag/razor_imu"/>
-  <arg name="bag" default="$(arg folder)/loops.bag"/>
-  <arg name="name" default="ratio10"/>
+  <arg name="bag" default="$(arg folder)/loops_56cm.bag"/>
+  <arg name="name" default="ekf_loops_56cm"/>
   <arg name="rate" default="10"/>
   <arg name="type" default="imu"/>
   <arg name="node_start_delay" default="5.0" />
 
   <node pkg="rosbag" type="play" name="play_node" output="screen" args="--clock $(arg bag)" required="true" launch-prefix="zsh -c 'sleep $(arg node_start_delay); $0 $@' " />
-  <node pkg="rosbag" type="record" name="record_node" output="screen" args="-a -o $(arg folder)/$(arg name)_$(arg rate)_$(arg type)"/>
+  <node pkg="rosbag" type="record" name="record_node" output="screen" args="-a -o $(arg folder)/ekf/$(arg name)_$(arg rate)_$(arg type)"/>
 
   <include file="$(find garry-robot)/launch/localization/localization_$(arg rate)Hz_$(arg type).launch"/>
 
-  <node name="var_msgs_node" pkg="garry-robot" type="var_msgs_node.py" output="screen">
-      <param name="ratio" value="0.333333"/>
-  </node>
+  <node name="var_msgs_node" pkg="garry-robot" type="var_msgs_node.py" output="screen"/>
 
   <include file="$(find garry-description)/launch/state.launch"/>
 </launch>

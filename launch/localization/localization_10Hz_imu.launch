@@ -31,7 +31,7 @@
     <!--param name="imu0_angular_velocity_rejection_threshold" value="0.1"/-->
     <!--param name="imu0_linear_acceleration_rejection_threshold" value="1.0"/-->
 
-    <param name="twist0" value="/fake_wheel/twist_var"/>
+    <param name="twist0" value="/fake_encoder/twist_var"/>
     <rosparam param="twist0_config">[false, false, false,
                                     false, false, false,
                                     true, false, false,
@@ -40,6 +40,6 @@
 
     <!--param name="twist0_queue_size" value="20"/-->
     <!--param name="twist0_relative" value="true"/-->
-    <!--param name="twist0_nodelay" value="true"/-->
+    <param name="twist0_nodelay" value="true"/>
   </node>
 </launch>
