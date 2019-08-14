@@ -9,7 +9,11 @@ class VarMsgsNode:
     def __init__(self, imu_in="/imu",
                        imu_out="/imu/var",
                        twist_in="/fake_encoder/twist",
-                       twist_out="/fake_encoder/twist_var"
+                       twist_out="/fake_encoder/twist_var",
+                       alpha = 1.0,
+                       beta=1.0,
+                       r1=0.001,
+                       r2=1.0
                        ):
         self.twist_sub = rospy.Subscriber(twist_in, TwistWithCovarianceStamped, self.twist_cb)
         self.twist_pub = rospy.Publisher(twist_out, TwistWithCovarianceStamped, queue_size=1)
@@ -17,10 +21,10 @@ class VarMsgsNode:
         self.imu_sub = rospy.Subscriber(imu_in, Imu, self.imu_cb)
         self.imu_pub = rospy.Publisher(imu_out, Imu, queue_size=1)
 
-        self.twist_lin_x_peak = 0.28
-        self.twist_ang_z_peak = -2.78
-        self.r1 = 0.00001
-        self.r2 = 1
+        self.twist_lin_x_peak = alpha
+        self.twist_ang_z_peak = -beta
+        self.r1 = r1
+        self.r2 = r2
 
         self.covariance_euler = np.zeros(36)
         self.covariance_euler[0] = (0.04*self.r1)**2
@@ -60,8 +64,17 @@ class VarMsgsNode:
 if __name__ == '__main__':
     rospy.loginfo("Initialising var_msgs_node")
     rospy.init_node("var_msgs_node")
+    r1 = rospy.get_param("~r1")
+    r2 = rospy.get_param("~r2")
+    alpha = rospy.get_param("~alpha")
+    beta= rospy.get_param("~beta")
 
-    var_covar_node = VarMsgsNode()
+    var_covar_node = VarMsgsNode(
+    r1=r1,
+    r2=r2,
+    alpha=alpha,
+    beta=beta
+    )
     rate = rospy.Rate(10)
 
     while not rospy.is_shutdown():
