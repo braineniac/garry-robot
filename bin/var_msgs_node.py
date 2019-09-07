@@ -6,7 +6,7 @@ from sensor_msgs.msg import Imu
 import numpy as np
 
 class VarMsgsNode:
-    def __init__(self, imu_in="/imu",
+    def __init__(self, imu_in="/imu_out/data",
                        imu_out="/imu/var",
                        twist_in="/fake_encoder/twist",
                        twist_out="/fake_encoder/twist_var",
@@ -22,7 +22,7 @@ class VarMsgsNode:
         self.imu_pub = rospy.Publisher(imu_out, Imu, queue_size=1)
 
         self.twist_lin_x_peak = alpha
-        self.twist_ang_z_peak = -beta
+        self.twist_ang_z_peak = beta
         self.r1 = r1
         self.r2 = r2
 
