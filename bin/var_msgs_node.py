@@ -27,9 +27,8 @@ class VarMsgsNode:
         self.r2 = r2
 
         self.covariance_euler = np.zeros(36)
-        self.covariance_euler[0] = (0.04*self.r1)**2
-        self.covariance_euler[35] = (0.02*self.r2)**2
-
+        self.covariance_euler[0] = 0.04*0.04 * self.r1*self.r1
+        self.covariance_euler[35] = 0.02*0.02 * self.r2 * self.r2
 
     def twist_cb(self, twist_msg):
         new_twist_msg = TwistWithCovarianceStamped()
@@ -48,7 +47,6 @@ class VarMsgsNode:
         new_imu_msg = Imu()
 
         new_imu_msg.header = imu_msg.header
-        new_imu_msg.header.frame_id = "base_imu_link"
 
         new_imu_msg.orientation = imu_msg.orientation
         new_imu_msg.orientation_covariance = imu_msg.orientation_covariance
