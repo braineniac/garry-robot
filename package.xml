@@ -54,8 +54,11 @@
   <build_depend>std_msgs</build_depend>
   <build_depend>joy</build_depend>
   <build_depend>tf</build_depend>
-  <build_depend>nav_msgs</build_depend>
-  <build_export_depend>roscpp</build_export_depend>
+	<build_depend>nav_msgs</build_depend>
+	<build_depend>image_transport</build_depend>
+	<build_depend>cv_bridge</build_depend>
+	<build_depend>usb_cam</build_depend>
+	<build_export_depend>roscpp</build_export_depend>
   <build_export_depend>rospy</build_export_depend>
   <build_export_depend>std_msgs</build_export_depend>
   <exec_depend>roscpp</exec_depend>
